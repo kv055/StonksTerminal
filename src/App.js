@@ -1,26 +1,40 @@
+//Config import
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+//-------------------------------------------------
+//Components import
+import positions from './Components/positions';
+import chart from './Components/chart';
+
+//-------------------------------------------------
+//Data Source
+
+//-------------------------------------------------
+
 function App() {
+  
+  let Chartdata;
+    return (
+      <div className="App">
+        <chart />
+        <p>Dateselector</p>
+      </div>
+    );
+  
+  let PositionData;
+  const PositionSections = PositionData.map(detail =>
+    {return (<positions Position={detail}/>)})
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {PositionSections}
     </div>
   );
 }
 
+
+
+//-------------------------------------------------
+//Export
 export default App;
