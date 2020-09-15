@@ -1,0 +1,23 @@
+{
+  "name": "apibackend",
+  "version": "1.0.0",
+  "description": "Api for the StonksTerminal React Frontend",
+  "main": "Api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kv055/StonksTerminal.git"
+  },
+  "author": "Kilian Voss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kv055/StonksTerminal.git/issues"
+  },
+  "homepage": "https://github.com/kv055/StonksTerminal.git#readme",
+  "dependencies": {
+    "nedb": "^1.8.0",
+    "node-fetch": "^2.6.1"
+  }
+}
