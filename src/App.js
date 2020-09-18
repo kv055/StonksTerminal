@@ -4,33 +4,32 @@ import './App.css';
 
 //-------------------------------------------------
 //Components import
-import positions from './Components/positions';
-import chart from './Components/chart';
+import Positions from './Components/positions.jsx';
+
 
 //-------------------------------------------------
 //Data Source
+import obj from './Data/data.js';
+
 
 //-------------------------------------------------
 
 function App() {
-  
-  let Chartdata;
+  const Positionz = obj.map(details => 
+    {return (<Positions 
+      Datum={details.Datum}
+      TradeCollateral={details.TradeCollateral}
+      AccountBallance={details.AccountBallance}
+      Faktor={details.Faktor}
+      Einstiegspreis={details.Einstiegspreis}
+      StatusAktiv={details.StatusAktiv}
+    />)}
+    )
     return (
-      <div className="App">
-        <chart />
-        <p>Dateselector</p>
+      <div>
+        {Positionz}
       </div>
     );
-  
-  let PositionData;
-  const PositionSections = PositionData.map(detail =>
-    {return (<positions Position={detail}/>)})
-  
-  return (
-    <div className="App">
-      {PositionSections}
-    </div>
-  );
 }
 
 

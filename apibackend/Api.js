@@ -30,8 +30,6 @@ app.post('/antwort1', jsonParser, (req, res) => {
 //--------------------------------------------------
 // //Zeug aus der Datenbank laden(Funktioniert)
 // database.find({}, (err, data) => {
-  
-//   let element;
     
   function getBtcUsd(position) {               
     return new Promise((resolve, reject) => {
@@ -44,119 +42,13 @@ app.post('/antwort1', jsonParser, (req, res) => {
   };
 
 
-  // for (element of data) {
-  //  //Initalizing Variables of the Object
-  //  let datum = element.Datum;
-  //  let tradecollateral = parseInt(element.TradeCollateral);
-  //  let accountballance = parseInt(element.AccountBallance);
-  //  let faktor = parseInt(element.Faktor);
-  //  let einstiegspreis = parseInt(element.Einstiegspreis);
-  //  let short = element.StatusAktiv;
-
-  //  getBtcUsd()
-  //   .then(data => {
-  //     const price = Math.trunc(data.bpi.USD.rate_float);
-  //     //Positionsberechnungen
-
-  //     let schwankungAbsolut = price - einstiegspreis;
-  //     schwankungAbsolut = Math.trunc(schwankungAbsolut);
-
-  //     let schwankung = ((price / einstiegspreis) - 1) * 100;
-  //     schwankung = Math.trunc(schwankung);
-
-  //     let leverage = tradecollateral * faktor;
-
-  //     let profitloss = null;
-
-  //     let liquidationlevel = null;
-
-  //     if (short == false) {
-  //       //Code für den Fall einer Long Position
-
-  //       //Schwankung im Fall einer Long Position
-  //       if (schwankung > 0) {
-  //         // console.log("Positive Equity: " + schwankung + "% (Kursanstieg: " + schwankungAbsolut + " USD)");
-  //       } else {
-  //         // console.log("Negative Equity: " + schwankung + "% (Kursverfall: " + schwankungAbsolut + " USD)");
-  //       };
-
-  //       //Profit/Verlusst Rechner im Fall einer Long Position
-  //       profitloss = (leverage / 100) * schwankung;
-
-  //       if (profitloss > 0) {
-  //         // console.log("Profit: " + profitloss);
-  //       } else {
-  //         // console.log("Loss: " + profitloss);
-  //       };
-
-  //       //Liquidationslevel bei einer long position
-  //       liquidationlevel = ((0.8 * tradecollateral) - accountballance) / (leverage / 100);
-  //       //Prozentuale Preisveränderung bei der dann Liquidiert wird
-
-
-  //     } else {
-
-  //       //Code für den Fall einer Short Position
-
-
-  //       // Schwankung im Fall einer Short Position
-  //       if (schwankung < 0) {
-  //         // console.log("Positive Equity: " + schwankung + "% (Kursverfall: " + schwankungAbsolut + " USD)");
-  //       } else {
-  //         // console.log("Negative Equity: " + schwankung + "% (Kursanstieg: " + schwankungAbsolut + " USD)");
-  //       };
-
-  //       // Profit/Verlusst Rechner im Fall einer Short Position
-  //       profitloss = (leverage / 100) * (-schwankung);
-
-  //       if (profitloss > 0) {
-  //         // console.log("Profit: " + profitloss);
-  //       } else {
-  //         // console.log("Loss: " + profitloss);
-  //       };
-
-  //       //Liquidationslevel (Prozentuale Preisveränderung bei der dann Liquidiert wird) bei einer short position
-  //       liquidationlevel = (-((0.8 * tradecollateral) - accountballance) / (leverage / 100));
-  //     };
-
-  //     let equity = accountballance + profitloss;
-
-  //     let marginlevel = (equity / tradecollateral) * 100;
-
-  //     let liquidationpreis = einstiegspreis - ((-liquidationlevel * 0.01) * einstiegspreis);
-
-  //     //--------------------------------------------------
-  //     //Positionsobjekt erstellen und zurück an App.js //Scope probleme
-  //     positionsObject = {
-  //       Datum: datum,
-  //       Tradecollateral: tradecollateral,
-  //       Accountballance: accountballance,
-  //       Faktor: faktor,
-  //       Einstiegspreis: einstiegspreis,
-  //       Short: short,
-  //       SchwankungAbsolut: schwankungAbsolut,
-  //       Schwankung: schwankung,
-  //       Leverage: leverage,
-  //       Profitloss: profitloss,
-  //       Liquidationlevel: liquidationlevel,
-  //       Equity: equity,
-  //       Marginlevel: marginlevel,
-  //       Liquidationpreis: liquidationpreis
-  //     };
-  //     console.log(positionsObject);
-
-  //     // posObject an den Client raus schicken
-  //    app.get('/antwort2', (request, response) => {
-  //     response.json(positionsObject);
+  function senden(position){
+    app.get('/antwort2', (request, response) => {
+      response.json(position);
       
-  //   }); 
-
-  //   });
-    
-  // };
-
-// });
-   
+    }); 
+    };
+ 
 
 
 database.find({}, (err, data) => {
@@ -168,121 +60,117 @@ database.find({}, (err, data) => {
 });
 let PositionRaw = [];
 
-getBtcUsd(PositionRaw).then(data => {
-        const price = Math.trunc(data.bpi.USD.rate_float);
-        console.log(PositionRaw);
-        console.log(price);
+// getBtcUsd(PositionRaw).then(data => {
+//         const price = Math.trunc(data.bpi.USD.rate_float);
+//         console.log(PositionRaw);
+//         console.log(price);
 
-        //Poscalcs hier einfügen
-        //Am ende dann
-        for (element of PositionRaw) {
-          //Initalizing Variables of the Object
-          let datum = element.Datum;
-          let tradecollateral = parseInt(element.TradeCollateral);
-          let accountballance = parseInt(element.AccountBallance);
-          let faktor = parseInt(element.Faktor);
-          let einstiegspreis = parseInt(element.Einstiegspreis);
-          let short = element.StatusAktiv;
+//         //Poscalcs hier einfügen
+//         //Am ende dann
+//         for (element of PositionRaw) {
+//           //Initalizing Variables of the Object
+//           let datum = element.Datum;
+//           let tradecollateral = parseInt(element.TradeCollateral);
+//           let accountballance = parseInt(element.AccountBallance);
+//           let faktor = parseInt(element.Faktor);
+//           let einstiegspreis = parseInt(element.Einstiegspreis);
+//           let short = element.StatusAktiv;
 
-             //Positionsberechnungen
+//              //Positionsberechnungen
        
-             let schwankungAbsolut = price - einstiegspreis;
-             schwankungAbsolut = Math.trunc(schwankungAbsolut);
+//              let schwankungAbsolut = price - einstiegspreis;
+//              schwankungAbsolut = Math.trunc(schwankungAbsolut);
        
-             let schwankung = ((price / einstiegspreis) - 1) * 100;
-             schwankung = Math.trunc(schwankung);
+//              let schwankung = ((price / einstiegspreis) - 1) * 100;
+//              schwankung = Math.trunc(schwankung);
        
-             let leverage = tradecollateral * faktor;
+//              let leverage = tradecollateral * faktor;
        
-             let profitloss = null;
+//              let profitloss = null;
        
-             let liquidationlevel = null;
+//              let liquidationlevel = null;
        
-             if (short == false) {
-               //Code für den Fall einer Long Position
+//              if (short == false) {
+//                //Code für den Fall einer Long Position
        
-               //Schwankung im Fall einer Long Position
-               if (schwankung > 0) {
-                 // console.log("Positive Equity: " + schwankung + "% (Kursanstieg: " + schwankungAbsolut + " USD)");
-               } else {
-                 // console.log("Negative Equity: " + schwankung + "% (Kursverfall: " + schwankungAbsolut + " USD)");
-               };
+//                //Schwankung im Fall einer Long Position
+//                if (schwankung > 0) {
+//                  // console.log("Positive Equity: " + schwankung + "% (Kursanstieg: " + schwankungAbsolut + " USD)");
+//                } else {
+//                  // console.log("Negative Equity: " + schwankung + "% (Kursverfall: " + schwankungAbsolut + " USD)");
+//                };
        
-               //Profit/Verlusst Rechner im Fall einer Long Position
-               profitloss = (leverage / 100) * schwankung;
+//                //Profit/Verlusst Rechner im Fall einer Long Position
+//                profitloss = (leverage / 100) * schwankung;
        
-               if (profitloss > 0) {
-                 // console.log("Profit: " + profitloss);
-               } else {
-                 // console.log("Loss: " + profitloss);
-               };
+//                if (profitloss > 0) {
+//                  // console.log("Profit: " + profitloss);
+//                } else {
+//                  // console.log("Loss: " + profitloss);
+//                };
        
-               //Liquidationslevel bei einer long position
-               liquidationlevel = ((0.8 * tradecollateral) - accountballance) / (leverage / 100);
-               //Prozentuale Preisveränderung bei der dann Liquidiert wird
-       
-       
-             } else {
-       
-               //Code für den Fall einer Short Position
+//                //Liquidationslevel bei einer long position
+//                liquidationlevel = ((0.8 * tradecollateral) - accountballance) / (leverage / 100);
+//                //Prozentuale Preisveränderung bei der dann Liquidiert wird
        
        
-               // Schwankung im Fall einer Short Position
-               if (schwankung < 0) {
-                 // console.log("Positive Equity: " + schwankung + "% (Kursverfall: " + schwankungAbsolut + " USD)");
-               } else {
-                 // console.log("Negative Equity: " + schwankung + "% (Kursanstieg: " + schwankungAbsolut + " USD)");
-               };
+//              } else {
        
-               // Profit/Verlusst Rechner im Fall einer Short Position
-               profitloss = (leverage / 100) * (-schwankung);
+//                //Code für den Fall einer Short Position
        
-               if (profitloss > 0) {
-                 // console.log("Profit: " + profitloss);
-               } else {
-                 // console.log("Loss: " + profitloss);
-               };
        
-               //Liquidationslevel (Prozentuale Preisveränderung bei der dann Liquidiert wird) bei einer short position
-               liquidationlevel = (-((0.8 * tradecollateral) - accountballance) / (leverage / 100));
-             };
+//                // Schwankung im Fall einer Short Position
+//                if (schwankung < 0) {
+//                  // console.log("Positive Equity: " + schwankung + "% (Kursverfall: " + schwankungAbsolut + " USD)");
+//                } else {
+//                  // console.log("Negative Equity: " + schwankung + "% (Kursanstieg: " + schwankungAbsolut + " USD)");
+//                };
        
-             let equity = accountballance + profitloss;
+//                // Profit/Verlusst Rechner im Fall einer Short Position
+//                profitloss = (leverage / 100) * (-schwankung);
        
-             let marginlevel = (equity / tradecollateral) * 100;
+//                if (profitloss > 0) {
+//                  // console.log("Profit: " + profitloss);
+//                } else {
+//                  // console.log("Loss: " + profitloss);
+//                };
        
-             let liquidationpreis = einstiegspreis - ((-liquidationlevel * 0.01) * einstiegspreis);
+//                //Liquidationslevel (Prozentuale Preisveränderung bei der dann Liquidiert wird) bei einer short position
+//                liquidationlevel = (-((0.8 * tradecollateral) - accountballance) / (leverage / 100));
+//              };
        
-             //--------------------------------------------------
-             //Positionsobjekt erstellen und zurück an App.js //Scope probleme
-             positionsObject = {
-               Datum: datum,
-               Tradecollateral: tradecollateral,
-               Accountballance: accountballance,
-               Faktor: faktor,
-               Einstiegspreis: einstiegspreis,
-               Short: short,
-               SchwankungAbsolut: schwankungAbsolut,
-               Schwankung: schwankung,
-               Leverage: leverage,
-               Profitloss: profitloss,
-               Liquidationlevel: liquidationlevel,
-               Equity: equity,
-               Marginlevel: marginlevel,
-               Liquidationpreis: liquidationpreis
-             };
-             console.log(positionsObject); 
-            PositionReady.push(positionsObject);
-         };
+//              let equity = accountballance + profitloss;
+       
+//              let marginlevel = (equity / tradecollateral) * 100;
+       
+//              let liquidationpreis = einstiegspreis - ((-liquidationlevel * 0.01) * einstiegspreis);
+       
+//              //--------------------------------------------------
+//              //Positionsobjekt erstellen und zurück an App.js //Scope probleme
+//              positionsObject = {
+//                Datum: datum,
+//                Tradecollateral: tradecollateral,
+//                Accountballance: accountballance,
+//                Faktor: faktor,
+//                Einstiegspreis: einstiegspreis,
+//                Short: short,
+//                SchwankungAbsolut: schwankungAbsolut,
+//                Schwankung: schwankung,
+//                Leverage: leverage,
+//                Profitloss: profitloss,
+//                Liquidationlevel: liquidationlevel,
+//                Equity: equity,
+//                Marginlevel: marginlevel,
+//                Liquidationpreis: liquidationpreis
+//              };
+//              console.log(positionsObject); 
+//             PositionReady.push(positionsObject);
+//          };
         
-});
-let PositionReady = [];
+// });
+// let PositionReady = [];
 
-function senden(position){
-app.get('/antwort2', (request, response) => {
-  response.json(position);
-  
-}); 
-};
 
-senden(PositionReady);
+// senden(PositionReady);
+
+senden(PositionRaw);
