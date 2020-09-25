@@ -48,6 +48,18 @@ app.post('/antwort1', jsonParser, (req, res) => {
       
     }); 
     };
+
+  
+  
+  function senden(){
+    app.get('/antwort3', (request, response) => {
+      response.json({
+        "Datum": "18.5.2020, 09:23:41"
+    });
+      
+    }); 
+    };
+    
  
 
 

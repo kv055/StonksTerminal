@@ -5,7 +5,7 @@ import './App.css';
 //-------------------------------------------------
 //Components import
 import Positions from './Components/positions.jsx';
-
+// import Chart from './Components/chart.jsx';
 
 //-------------------------------------------------
 //Data Source
@@ -25,9 +25,14 @@ function App() {
       StatusAktiv={details.StatusAktiv}
     />)}
     )
+
+
+
     return (
       <div>
         {Positionz}
+        
+
       </div>
     );
 }
