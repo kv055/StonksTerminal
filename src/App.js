@@ -5,16 +5,21 @@ import './App.css';
 //-------------------------------------------------
 //Components import
 import Positions from './Components/positions.jsx';
-// import Chart from './Components/chart.jsx';
+import Chart from './Components/chart.jsx';
 
 //-------------------------------------------------
 //Data Source
 import obj from './Data/data.js';
+import chartdata from './Data/chartdata.js'
 
 
 //-------------------------------------------------
 
 function App() {
+
+  console.log(chartdata);
+
+
   const Positionz = obj.map(details => 
     {return (<Positions 
       Datum={details.Datum}
@@ -31,7 +36,10 @@ function App() {
     return (
       <div>
         {Positionz}
-        
+        <Chart 
+          Xachse= {chartdata[0]}
+          Yachse= {chartdata[1]}
+        />
 
       </div>
     );
