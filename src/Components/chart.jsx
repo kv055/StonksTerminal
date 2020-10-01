@@ -1,21 +1,34 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
 
+class App extends React.Component {
+  
+    constructor(props) {
+      super();
+   
+      this.state = {
+        isLoading: false,
+        btcUsdChart: props.Daten
+      };
+    }
+  
+    componentDidMount() {
 
-
-function chart(props){
-
-    let  Xaxe = props.Xachse;
-    let Yaxe = props.Yachse;
-
-      return(
-        <div className="chart">
+    }
+    
+    render() {
+  
+      
+      console.log(this.state.btcUsdChart);
+  
+          return (
+            <div className="chart">
             <Line   data={{
-                    labels: Xaxe, //Xachse
+                    labels: this.state.btcUsdChart[0], //Xachse
                     datasets: [
                         {
                 
-                        data: Yaxe, //Yachse //Data als Array
+                        data: this.state.btcUsdChart[1], //Yachse //Data als Array
                         fill: false,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -46,11 +59,10 @@ function chart(props){
       
             
         </div>
-      )
+          )
+        }
+  }
+   
+  export default App;
+  
 
-    }
-
-// }
-
-
-export default chart;

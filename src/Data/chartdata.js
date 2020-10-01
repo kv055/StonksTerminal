@@ -1,12 +1,67 @@
-//Fetch Code schreiben
+import React from 'react';
+ 
+// class App extends React.Component {
+  
+//   constructor() {
+//     super();
+ 
+//     this.state = {
+//       isLoading: false,
+//       btcUsdNow: [],
+//       btcUsdChart: []
+//     };
+//   }
+
+//   componentDidMount() {
+//     this.setState({isLoading: true});
+    
+//     fetch('https://api.coindesk.com/v1/bpi/currentprice.json',{mode: 'cors'})
+//       .then(response => response.json())
+//       .then(data => this.setState({ 
+//         btcUsdNow: data.bpi.USD.rate_float, 
+        
+//       }));
+      
+//     fetch('https://api.coindesk.com/v1/bpi/historical/close.json?start=2018-07-01&end=2020-07-07',{mode: 'cors'})
+//     .then(response => response.json())
+//     .then(data => 
+
+      
+//       this.setState({ 
+//       btcUsdChart: data.bpi, 
+//       isLoading: false 
+
+//     }));
+//   }
+  
+//   render() {
+
+    
+//     let xxx = [[],[]];
+    
+//     function todisplay (chartdata){
+//       let tempentries = Object.entries(chartdata);
+
+//       for (const element of tempentries) {
+//         xxx[0].push(element[1]);
+//         xxx[1].push(element[0]);
+//       };
 
 
-const chartdata = 
-    [
-        ["2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07"],
-        [9153.95,9199.875,9094.955,9083.395,9075.3125,9203.25,9265.375]
-    ]
+
+//     };
+//     todisplay(this.state.btcUsdChart)
 
 
 
-export default chartdata;
+
+//         return (
+
+//         )
+//       }
+// }
+ 
+// export default App;
+
+
+

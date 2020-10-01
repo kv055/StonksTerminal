@@ -3,13 +3,17 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const nedb = require('nedb');
 const fetch = require('node-fetch');
+const cors = require('cors');
 
 const app = express();
 const jsonParser = bodyParser.json();
 
+
+// app.use(cors());
+
 //--------------------------------------------------
 //Listen auf Port 3000(Funktioniert)
-app.listen(3000, ()=>{
+app.listen(3002, ()=>{
     console.log("Alles Roger auf Port 3000");
   });
 
@@ -50,16 +54,7 @@ app.post('/antwort1', jsonParser, (req, res) => {
     };
 
   
-  
-  function senden(){
-    app.get('/antwort3', (request, response) => {
-      response.json({
-        "Datum": "18.5.2020, 09:23:41"
-    });
-      
-    }); 
-    };
-    
+
  
 
 
@@ -186,3 +181,10 @@ let PositionRaw = [];
 // senden(PositionReady);
 
 senden(PositionRaw);
+
+app.get('/antwort3', cors() , (request, response) => {
+  response.json({
+    Datum : '18.5.2020, 09:23:41'
+});
+  
+}); 

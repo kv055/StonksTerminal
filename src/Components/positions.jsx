@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function positions(props){
     let Status = props.StatusAktiv;
     let indikator;
@@ -24,3 +25,4 @@ function positions(props){
 };
 
 export default positions
+
