@@ -13,7 +13,19 @@ class CalculatedPosition extends React.Component {
                 statusactive: true
             },
 
+            plRechner:{
+                schwankung: null,
+                schwankungAbsolut: null,
+                profitloss: 1,
+                liquidationlevel: null,
+                leverage: null,
+                equity: null,
+                marginlevel: null,
+                liquidationpreis: null
+            },
+
             price: 0
+
             
          }
     }

@@ -32,69 +32,13 @@ class NewPosition extends React.Component {
     }
 
     render() { 
-        
-//-------------------------------
-        let TradeCollateral = null;
-        let AccountBallance = null;
-        let Faktor = null;
-        let Einstiegspreis = null;
-        
-        //funktioniert
-        if (this.state.tradecollateral === NaN) {
-            TradeCollateral = null;
-        }
-        if (this.state.tradecollateral === null) {
-            TradeCollateral = null;
-        }
-        if (this.state.tradecollateral < 0) {
-            TradeCollateral = null;
-        }        
-        if (this.state.tradecollateral > 0) {
-            TradeCollateral = <p>Trade Collateral: {this.state.tradecollateral}</p>;
-        }        
 
-        if (this.state.accountballance === NaN) {
-            AccountBallance = null;
-        }
-        if (this.state.accountballance === null) {
-            AccountBallance = null;
-        }
-        if (this.state.accountballance < 0) {
-            AccountBallance = null;
-        }        
-        if (this.state.accountballance > 0) {
-            AccountBallance = <p>Accountballance: {this.state.accountballance}</p>;
-        }        
-
-        if (this.state.faktor === NaN) {
-            Faktor = null;
-        }
-        if (this.state.faktor === null) {
-            Faktor = null;
-        }
-        if (this.state.faktor < 0) {
-            Faktor = null;
-        }        
-        if (this.state.faktor > 0) {
-            Faktor = <p>Faktor: {this.state.faktor}</p>;
-        }        
-
-        if (this.state.einstiegspreis === NaN) {
-            Einstiegspreis = null;
-        }
-        if (this.state.einstiegspreis === null) {
-            Einstiegspreis = null;
-        }
-        if (this.state.einstiegspreis < 0) {
-            Einstiegspreis = null;
-        }        
-        if (this.state.einstiegspreis > 0) {
-            Einstiegspreis = <p>Einstiegspreis: {this.state.einstiegspreis}</p>;
-        }        
-//-------------------------------
-            
-       
+        let TradeCollateral = this.state.tradecollateral <= 0 ? null : <p>Trade Collateral: {this.state.tradecollateral}</p>;
+        let AccountBallance = this.state.accountballance <= 0 ? null : <p>Accountballance: {this.state.accountballance}</p>;
+        let Faktor = this.state.faktor <= 0 ? null : <p>Faktor: {this.state.faktor}</p>;
+        let Einstiegspreis = this.state.einstiegspreis <= 0 ? null : <p>Einstiegspreis: {this.state.einstiegspreis}</p>;
         
+      
         return (  
             <div>
                 <h1>Margin Level Calculator</h1>

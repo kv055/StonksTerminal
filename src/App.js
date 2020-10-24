@@ -73,8 +73,6 @@ componentDidMount(){
     //   />)}
     //   );
 
-    
-    console.log(this.state.Positions.AccountBallance);
 
     let loadingChart= this.state.isLoading === true ? <p>Lädt</p>  : <Chart dten={this.state.btcUsdChart}/>;
 
