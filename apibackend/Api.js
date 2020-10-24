@@ -182,6 +182,20 @@ let PositionRaw = [];
 
 senden(PositionRaw);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/antwort3', cors() , (request, response) => {
   response.json({
     Datum : '18.5.2020, 09:23:41'

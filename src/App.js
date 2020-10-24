@@ -1,13 +1,13 @@
 //Config import
 import React from 'react';
-import './App.css';
+
 
 //-------------------------------------------------
 //Components import
 import Positions from './Components/positions.jsx';
 import Chart from './Components/chart.jsx';
-import ChartControlPanel from './Components/ChartControlPanel.jsx';
 import NewPosition from './Components/NewPositions.jsx'
+import CalculatedPosition from './Components/CalculatedPosition.jsx'
 
 //-------------------------------------------------
 class App extends React.Component {
@@ -16,23 +16,24 @@ class App extends React.Component {
     this.state = { 
       isLoading: false,
       Positions : [],
-      btcUsdChart: []
+      btcUsdChart: [],
+      btcUsdNow: null
      }
   }
 componentDidMount(){
   this.setState({isLoading: true});
+  let today = new Date().toISOString().split("T")[0];
+
+  fetch('https://api.coindesk.com/v1/bpi/currentprice.json',{mode: 'cors'})
+    .then(response => response.json())
+    .then(data => this.setState({ 
+      btcUsdNow: data.bpi.USD.rate_float, 
       
-  // fetch('https://api.coindesk.com/v1/bpi/currentprice.json',{mode: 'cors'})
-  //   .then(response => response.json())
-  //   .then(data => this.setState({ 
-  //     btcUsdNow: data.bpi.USD.rate_float, 
-      
-  //   }));
+    }));
     
-  fetch('https://api.coindesk.com/v1/bpi/historical/close.json?start=2015-07-01&end=2020-07-07',{mode: 'cors'})
+  fetch('https://api.coindesk.com/v1/bpi/historical/close.json?start=2014-07-01&end='+today,{mode: 'cors'})
   .then(response => response.json())
   .then(data => 
-
     this.setState({ 
     btcUsdChart: data.bpi
 
@@ -42,7 +43,7 @@ componentDidMount(){
   .then(data => 
 
     this.setState({ 
-    Positions: data, 
+    Positions: data[0], 
     isLoading: false 
 
   }));
@@ -51,47 +52,47 @@ componentDidMount(){
 
 
   render() { 
+  
     
-    
-    
-    const Positionz = 
-      this.state.Positions.map(details => 
-      {return (<Positions 
-        Datum={details.Datum}
-        TradeCollateral={details.TradeCollateral}
-        AccountBallance={details.AccountBallance}
-        Faktor={details.Faktor}
-        Einstiegspreis={details.Einstiegspreis}
-        StatusAktiv={details.StatusAktiv}
-      />)}
-      )
+    //------------------------------------------
 
-    let xxx = [[],[]];
-    function todisplay (chartdata){
-      let tempentries = Object.entries(chartdata);
 
-      for (const element of tempentries) {
-        xxx[1].push(element[1]);
-        xxx[0].push(element[0]);
-      };
-
-      
-
-    };
-    todisplay(this.state.btcUsdChart)
    
 
     
 
-    // let loadingPositionz = this.state.isLoading === true ? <p>Lädt</p> : {Positionz};
-    let loadingChart= this.state.isLoading === true ? <p>Lädt</p>  : <Chart Daten={xxx}/>;
+    // let loadingPositionz = this.state.isLoading === true ? <p>Lädt</p> :       
+    // this.state.Positions.map(details => 
+    //   {return (<Positions 
+    //     Datum={details.Datum}
+    //     TradeCollateral={details.TradeCollateral}
+    //     AccountBallance={details.AccountBallance}
+    //     Faktor={details.Faktor}
+    //     Einstiegspreis={details.Einstiegspreis}
+    //     StatusAktiv={details.StatusAktiv}
+    //   />)}
+    //   );
+
+    
+    console.log(this.state.Positions.AccountBallance);
+
+    let loadingChart= this.state.isLoading === true ? <p>Lädt</p>  : <Chart dten={this.state.btcUsdChart}/>;
 
     return (
       <div>
-      {loadingChart}
-      {/* <ChartControlPanel /> */}
+      {/* {loadingChart} */}
+      <Chart vis={this.state.btcUsdChart} />
+      {/* <Chart vis={this.state.btcUsdChart} /> */}
       {/* {loadingPositionz} */}
-      {/* <NewPosition></NewPosition> */}
+      <NewPosition></NewPosition>
+      <CalculatedPosition 
+          // tradecollateral={this.state.Positions.TradeCollateral}
+          // accountballance = {this.state.Positions.AccountBallance}
+          // faktor = {this.state.Positions.Faktor}
+          // einstiegspreis = {this.state.Positions.Einstiegspreis}
+          //  // statusactive = {props.statusactive}
+          // price = {this.state.btcUsdNow}
+        />
     </div>
       );
   }

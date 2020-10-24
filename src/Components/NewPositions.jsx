@@ -1,4 +1,6 @@
 import React from 'react';
+//Todo: fetch-post to save the position
+
 
 class NewPosition extends React.Component {
     constructor() {
@@ -9,60 +11,94 @@ class NewPosition extends React.Component {
             accountballance: null,
             faktor: null,
             einstiegspreis: null,
-            statusactive: true
+            statusactive: true,
+            price: null
          }
          this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event){
-        this.setState({
-            // datum : new Date().toLocaleString(),
-            [event.target.name] : event.target.value
+        if (!isNaN(event.target.value) && (event.target.value) >= 0) {
+            
+            this.setState({
+                // datum : new Date().toLocaleString(),
+                [event.target.name] : event.target.value
+                // event.tradecollateral : event.this.state.tradecollateral
+                // event.target.tradecollateral : event.target.this.state.tradecollateral
+            });
 
-        });
-
-
+        }
 
     }
 
     render() { 
-        let price = 9000;
+        
+//-------------------------------
+        let TradeCollateral = null;
+        let AccountBallance = null;
+        let Faktor = null;
+        let Einstiegspreis = null;
+        
+        //funktioniert
+        if (this.state.tradecollateral === NaN) {
+            TradeCollateral = null;
+        }
+        if (this.state.tradecollateral === null) {
+            TradeCollateral = null;
+        }
+        if (this.state.tradecollateral < 0) {
+            TradeCollateral = null;
+        }        
+        if (this.state.tradecollateral > 0) {
+            TradeCollateral = <p>Trade Collateral: {this.state.tradecollateral}</p>;
+        }        
 
-        let schwankungAbsolut = price - this.state.einstiegspreiseinstiegspreis;
-        schwankungAbsolut = Math.trunc(schwankungAbsolut);
-        
-        let schwankung = ((price / this.state.einstiegspreis) - 1) * 100;
-        schwankung = Math.trunc(schwankung);
-        
-        let leverage = this.state.tradecollateral * this.state.faktor;
+        if (this.state.accountballance === NaN) {
+            AccountBallance = null;
+        }
+        if (this.state.accountballance === null) {
+            AccountBallance = null;
+        }
+        if (this.state.accountballance < 0) {
+            AccountBallance = null;
+        }        
+        if (this.state.accountballance > 0) {
+            AccountBallance = <p>Accountballance: {this.state.accountballance}</p>;
+        }        
+
+        if (this.state.faktor === NaN) {
+            Faktor = null;
+        }
+        if (this.state.faktor === null) {
+            Faktor = null;
+        }
+        if (this.state.faktor < 0) {
+            Faktor = null;
+        }        
+        if (this.state.faktor > 0) {
+            Faktor = <p>Faktor: {this.state.faktor}</p>;
+        }        
+
+        if (this.state.einstiegspreis === NaN) {
+            Einstiegspreis = null;
+        }
+        if (this.state.einstiegspreis === null) {
+            Einstiegspreis = null;
+        }
+        if (this.state.einstiegspreis < 0) {
+            Einstiegspreis = null;
+        }        
+        if (this.state.einstiegspreis > 0) {
+            Einstiegspreis = <p>Einstiegspreis: {this.state.einstiegspreis}</p>;
+        }        
+//-------------------------------
             
-        let profitloss = null;
+       
         
-        let liquidationlevel = null;
-        
-     
-          //Profit/Verlusst Rechner im Fall einer Long Position
-          profitloss = (leverage / 100) * schwankung;
-        
-          //Liquidationslevel bei einer long position
-          liquidationlevel = ((0.8 * this.state.tradecollateral) - this.state.accountballance) / (leverage / 100);
-          //Prozentuale Preisveränderung bei der dann Liquidiert wird
-
-        
-        let equity = this.state.accountballance + profitloss;
-        
-        let marginlevel = (equity / this.state.tradecollateral) * 100;
-        
-        
-        let liquidationpreis = this.state.einstiegspreis-((-liquidationlevel * 0.01)*this.state.einstiegspreis);
-        
-        
-    
-
         return (  
             <div>
                 <h1>Margin Level Calculator</h1>
-                <input type="number" id="1" name="tradecollateral" value={this.state.tradecollateral} placeholder="Trade Collateral" onChange={this.handleChange}/>
+                <input name="tradecollateral" value={this.state.tradecollateral} placeholder="Trade Collateral" onChange={this.handleChange}/>
                 <br></br>
                 <input type="number" id="2" name="accountballance" value={this.state.accountballance} placeholder="Account Ballance" onChange={this.handleChange}/>
                 <br></br>
@@ -70,25 +106,44 @@ class NewPosition extends React.Component {
                 <br></br>
                 <input type="number" id="4" name="einstiegspreis" value={this.state.einstiegspreis} placeholder="Einstiegspreis" onChange={this.handleChange}/>
                 <br></br>
+                <input type="number" name="price" value={this.state.price} placeholder="P/L Rechner Preis" onChange={this.handleChange}/>
+                <br></br>
                 <button id="5">Create Position</button>
+                
+                <div style={{border: '1px solid black'}}>
+                    
+                    {TradeCollateral}
+                    {AccountBallance}
+                    {Faktor}
+                    {Einstiegspreis}
+                </div>
 
-                <p>Trade Collateral: {this.state.tradecollateral}</p> 
-                <p>Account Ballance: {this.state.accountballance}</p>
-                <p>Eingesetzter Faktor/Hebel: {this.state.faktor}</p>
-                <p>Einstiegspreis: {this.state.einstiegspreis}</p> 
-
-
-        <p>Aktueller Preis: {price}</p> 
-        <p>Kursverlauf: {schwankungAbsolut}</p>
-        <p>Profit/Loss:{profitloss}</p>  
-        <p>Leverage (Gehebelter Betrag):{leverage}</p> 
-        <p>Equity: {equity}</p>  
-        <p>Marginlevel: {marginlevel}</p>   
-                <p>Liquiditons level: </p>     
-        <p>Liquiditations Preis: {liquidationpreis}</p>    
             </div>
+
         );
     }
 }
  
 export default NewPosition;
+
+
+
+
+
+//---------------------------------------------
+
+// let renderVariable = ['Trade Collateral: {this.state.tradecollateral}']
+// for(x of renderVariable ){
+//         if (props === NaN) {
+//             TradeCollateral = null;
+//         }
+//         if (props === null) {
+//             TradeCollateral = null;
+//         }
+//         if (props < 0) {
+//             TradeCollateral = null;
+//         }        
+//         if (props > 0) {
+//             TradeCollateral = <p> </p>;
+//         } 
+//     }
