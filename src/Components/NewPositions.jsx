@@ -1,5 +1,7 @@
 import React from 'react';
-//Todo: fetch-post to save the position
+import CalculatedPosition from './CalculatedPosition'
+
+//Todo: fetch-post to save the position & datum funktion schreiben die das State objekt füllt
 
 
 class NewPosition extends React.Component {
@@ -32,7 +34,7 @@ class NewPosition extends React.Component {
     }
 
     render() { 
-
+        console.log('NewPosition: this.state.tradecollateral: ',this.state.tradecollateral);
         let TradeCollateral = this.state.tradecollateral <= 0 ? null : <p>Trade Collateral: {this.state.tradecollateral}</p>;
         let AccountBallance = this.state.accountballance <= 0 ? null : <p>Accountballance: {this.state.accountballance}</p>;
         let Faktor = this.state.faktor <= 0 ? null : <p>Faktor: {this.state.faktor}</p>;
@@ -60,6 +62,13 @@ class NewPosition extends React.Component {
                     {AccountBallance}
                     {Faktor}
                     {Einstiegspreis}
+
+                    <CalculatedPosition 
+                        Tradecollateral={this.state.tradecollateral}
+                        AccountBallance={this.state.accountballance}
+                        Faktor={this.state.faktor}
+                        Einstiegspreis={this.state.einstiegspreis}    
+                    />                    
                 </div>
 
             </div>
@@ -69,25 +78,3 @@ class NewPosition extends React.Component {
 }
  
 export default NewPosition;
-
-
-
-
-
-//---------------------------------------------
-
-// let renderVariable = ['Trade Collateral: {this.state.tradecollateral}']
-// for(x of renderVariable ){
-//         if (props === NaN) {
-//             TradeCollateral = null;
-//         }
-//         if (props === null) {
-//             TradeCollateral = null;
-//         }
-//         if (props < 0) {
-//             TradeCollateral = null;
-//         }        
-//         if (props > 0) {
-//             TradeCollateral = <p> </p>;
-//         } 
-//     }

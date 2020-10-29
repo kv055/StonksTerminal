@@ -18,10 +18,6 @@ function todisplay (chartdata){
 todisplay(props.vis)
 
 
-console.log('dates',dates.length);
-// console.log('price',price);
-
-
  let datensets = [
     {
         name: 'BTC/USD',

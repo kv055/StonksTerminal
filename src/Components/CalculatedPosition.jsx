@@ -6,17 +6,17 @@ class CalculatedPosition extends React.Component {
         this.state = { 
 
             position:{
-                tradecollateral: 200,
-                accountballance: 500,
-                faktor: 3,
-                einstiegspreis: 6600,
+                tradecollateral: this.props.Tradecollateral,
+                accountballance: this.props.AccountBallance,
+                faktor: this.props.Faktor,
+                einstiegspreis: this.props.EinstiegsPreis,
                 statusactive: true
             },
 
             plRechner:{
                 schwankung: null,
                 schwankungAbsolut: null,
-                profitloss: 1,
+                profitloss: null,
                 liquidationlevel: null,
                 leverage: null,
                 equity: null,
@@ -41,16 +41,20 @@ class CalculatedPosition extends React.Component {
     }
 
     render() { 
+        console.log('Funktioniert nicht: this.state.position.tradecollateral: ',this.state.position.tradecollateral);
+        console.log('Funktioniert props.Tradecollateral: ', this.props.Tradecollateral);
 
         let schwankung = null;
         let schwankungAbsolut= null;
-        let profitloss = 1;  
+        let profitloss = null;  
         let liquidationlevel = null;
         let leverage = null;
         let equity = null;
         let marginlevel = null;
         let liquidationpreis = null;
 
+
+        //CSS-Styling Variables
         let indikator;
         if (
             // 1
@@ -65,7 +69,14 @@ class CalculatedPosition extends React.Component {
       
 
 
-        let PosVisualiser = function ({tradecollateral, accountballance, faktor, einstiegspreis, price}){
+        let PosVisualiser = function ({
+            tradecollateral, 
+            accountballance, 
+            faktor, 
+            einstiegspreis, 
+            price
+
+        }){
  
 
             schwankungAbsolut = price - einstiegspreis;
@@ -87,15 +98,35 @@ class CalculatedPosition extends React.Component {
                     
             liquidationpreis = einstiegspreis-((-liquidationlevel * 0.01) * einstiegspreis);
 
+            //Conditional Render Variables
+            let SchwankungAbsolutVis = isNaN(schwankungAbsolut) ? null : <p>Kursverlauf: {schwankungAbsolut}</p>;
+            let SchwankungVis = isNaN(schwankung) ? null : <p>Kursverlauf in Prozent: {schwankungAbsolut}</p>;
+            let PLVis= isNaN(profitloss)  ? null : <p>Profit/Loss: {profitloss}</p>;
+            let LeverageVis = isNaN(leverage) ? null : <p>Leverage (Gehebelter Betrag): {leverage}</p>;
+            let EquityVis = isNaN(equity) ? null : <p>Equity: {equity}</p>;
+            let MarginlevelVis = isNaN(marginlevel) ? null : <p>Marginlevel: {marginlevel}</p>;
+            let LiquidationLevelVis = isNaN(liquidationlevel) ? null :  <p>Liquiditons level: {liquidationlevel}</p>;
+            let LiquidationPreisVis = isNaN(liquidationpreis) ? null :  <p>Liquiditations Preis: {liquidationpreis}</p> ;
+
+
             return (
                 <div >
-                    <p>Kursverlauf: {schwankungAbsolut}</p>
-                    <p>Profit/Loss: {profitloss}</p>  
-                    <p>Leverage (Gehebelter Betrag): {leverage}</p> 
-                    <p>Equity: {equity}</p>  
-                    <p>Marginlevel: {marginlevel}</p>    
-                    <p>Liquiditons level: {liquidationlevel}</p>     
-                    <p>Liquiditations Preis: {liquidationpreis}</p> 
+                    {SchwankungAbsolutVis}
+                    {SchwankungVis}
+                    {PLVis}
+                    {LeverageVis}
+                    {EquityVis}
+                    {MarginlevelVis}
+                    {LiquidationLevelVis}
+                    {LiquidationPreisVis}
+
+                    {/* <p>Kursverlauf: {schwankungAbsolut}</p> */}
+                    {/* <p>Profit/Loss: {profitloss}</p>   */}
+                    {/* <p>Leverage (Gehebelter Betrag): {leverage}</p>  */}
+                    {/* <p>Equity: {equity}</p>   */}
+                    {/* <p>Marginlevel: {marginlevel}</p>     */}
+                    {/* <p>Liquiditons level: {liquidationlevel}</p>      */}
+                    {/* <p>Liquiditations Preis: {liquidationpreis}</p>  */}
                 </div>
                 )
         }
@@ -108,11 +139,18 @@ class CalculatedPosition extends React.Component {
                 <div style={{color: indikator, border: '1px solid black'}}>
                     <PosVisualiser 
                         
-                        tradecollateral={this.state.position.tradecollateral} 
-                        accountballance={this.state.position.accountballance} 
-                        faktor={this.state.position.faktor} 
-                        einstiegspreis={this.state.position.einstiegspreis}
+                        // tradecollateral={this.state.position.tradecollateral} 
+                        // accountballance={this.state.position.accountballance} 
+                        // faktor={this.state.position.faktor} 
+                        // einstiegspreis={this.state.position.einstiegspreis}
+                        // price={this.state.price}
+
+                        tradecollateral={this.props.Tradecollateral} 
+                        accountballance={this.props.AccountBallance} 
+                        faktor={this.props.Faktor} 
+                        einstiegspreis={this.props.Einstiegspreis}
                         price={this.state.price}
+
                     />
                 </div>
             </div>

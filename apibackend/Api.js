@@ -66,7 +66,7 @@ database.find({}, (err, data) => {
   
 });
 let PositionRaw = [];
-
+console.log(PositionRaw);
 // getBtcUsd(PositionRaw).then(data => {
 //         const price = Math.trunc(data.bpi.USD.rate_float);
 //         console.log(PositionRaw);
@@ -198,7 +198,13 @@ senden(PositionRaw);
 
 app.get('/antwort3', cors() , (request, response) => {
   response.json({
-    Datum : '18.5.2020, 09:23:41'
+    Datum:"18.5.2020, 09:09:31",
+    TradeCollateral:"8",
+    AccountBallance:"8",
+    Faktor:"8",
+    Einstiegspreis:"888",
+    StatusAktiv:false,
+    "_id":"AsXnPh9oxxzRiJ13"
 });
   
 }); 

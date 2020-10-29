@@ -7,7 +7,7 @@ import React from 'react';
 import Positions from './Components/positions.jsx';
 import Chart from './Components/chart.jsx';
 import NewPosition from './Components/NewPositions.jsx'
-import CalculatedPosition from './Components/CalculatedPosition.jsx'
+
 
 //-------------------------------------------------
 class App extends React.Component {
@@ -15,7 +15,7 @@ class App extends React.Component {
     super();
     this.state = { 
       isLoading: false,
-      Positions : [],
+      PositionsFromApi : [],
       btcUsdChart: [],
       btcUsdNow: null
      }
@@ -43,7 +43,7 @@ componentDidMount(){
   .then(data => 
 
     this.setState({ 
-    Positions: data[0], 
+    PositionsFromApi: data, 
     isLoading: false 
 
   }));
@@ -52,7 +52,7 @@ componentDidMount(){
 
 
   render() { 
-  
+    console.log(this.state.PositionsFromApi);
     
     //------------------------------------------
 
@@ -61,17 +61,17 @@ componentDidMount(){
 
     
 
-    // let loadingPositionz = this.state.isLoading === true ? <p>Lädt</p> :       
-    // this.state.Positions.map(details => 
-    //   {return (<Positions 
-    //     Datum={details.Datum}
-    //     TradeCollateral={details.TradeCollateral}
-    //     AccountBallance={details.AccountBallance}
-    //     Faktor={details.Faktor}
-    //     Einstiegspreis={details.Einstiegspreis}
-    //     StatusAktiv={details.StatusAktiv}
-    //   />)}
-    //   );
+    let loadingPositionz = this.state.isLoading === true ? <p>Lädt</p> :       
+    this.state.PositionsFromApi.map(details => 
+      {return (<Positions 
+        Datum={details.Datum}
+        TradeCollateral={details.TradeCollateral}
+        AccountBallance={details.AccountBallance}
+        Faktor={details.Faktor}
+        Einstiegspreis={details.Einstiegspreis}
+        StatusAktiv={details.StatusAktiv}
+      />)}
+      );
 
 
     let loadingChart= this.state.isLoading === true ? <p>Lädt</p>  : <Chart dten={this.state.btcUsdChart}/>;
@@ -79,18 +79,31 @@ componentDidMount(){
     return (
       <div>
       {/* {loadingChart} */}
+
       <Chart vis={this.state.btcUsdChart} />
-      {/* <Chart vis={this.state.btcUsdChart} /> */}
-      {/* {loadingPositionz} */}
+
+      {loadingPositionz}
+
+      {/* <Positions 
+        Datum={this.state.PositionsFromApi.Datum}
+        TradeCollateral={this.state.PositionsFromApi.TradeCollateral}
+        AccountBallance={this.state.PositionsFromApi.AccountBallance}
+        Faktor={this.state.PositionsFromApi.Faktor}
+        Einstiegspreis={this.state.PositionsFromApi.Einstiegspreis}
+        StatusAktiv={this.state.PositionsFromApi.StatusAktiv}
+      
+      /> */}
+
       <NewPosition></NewPosition>
-      <CalculatedPosition 
+
+      {/* <CalculatedPosition 
           // tradecollateral={this.state.Positions.TradeCollateral}
           // accountballance = {this.state.Positions.AccountBallance}
           // faktor = {this.state.Positions.Faktor}
           // einstiegspreis = {this.state.Positions.Einstiegspreis}
           //  // statusactive = {props.statusactive}
           // price = {this.state.btcUsdNow}
-        />
+        /> */}
     </div>
       );
   }
